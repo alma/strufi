@@ -11,11 +11,13 @@ jobs:
   define-matrix:
     runs-on: ubuntu-latest
     outputs:
-      python-versions: ${{ steps.python-versions.outputs.python-versions }}
+      minimal-python-versions: ${{ steps.python-versions.outputs.minimal }}
+      python-versions: ${{ steps.python-versions.outputs.all }}
     steps:
     - id: python-versions
       run: |
-        echo 'python-versions=["3.12", "3.13"]' >> "$GITHUB_OUTPUT"
+        echo 'minimal=["3.12"]' >> "$GITHUB_OUTPUT"
+        echo 'all=["3.12", "3.13"]' >> "$GITHUB_OUTPUT"
 
   format:
     runs-on: ubuntu-latest
@@ -23,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ${{ fromJSON(needs.define-matrix.outputs.python-versions) }}
+        python-version: ${{ fromJSON(needs.define-matrix.outputs.minimal-python-versions) }}
     steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setup
@@ -39,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ${{ fromJSON(needs.define-matrix.outputs.python-versions) }}
+        python-version: ${{ fromJSON(needs.define-matrix.outputs.minimal-python-versions) }}
     steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setup
