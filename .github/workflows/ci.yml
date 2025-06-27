@@ -7,46 +7,42 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  PYTHON_MINIMAL_VERSION: "3.12"
+  PYTHON_VERSIONS: '["3.12", "3.13"]'
+
 jobs:
   define-matrix:
     runs-on: ubuntu-latest
     outputs:
-      minimal-python-versions: ${{ steps.python-versions.outputs.minimal }}
-      python-versions: ${{ steps.python-versions.outputs.all }}
+      python-versions: ${{ steps.python-versions.outputs.python-versions }}
     steps:
     - id: python-versions
       run: |
-        echo 'minimal=["3.12"]' >> "$GITHUB_OUTPUT"
-        echo 'all=["3.12", "3.13"]' >> "$GITHUB_OUTPUT"
+        echo "python-versions=$PYTHON_VERSIONS" >> "$GITHUB_OUTPUT"
 
   format:
     runs-on: ubuntu-latest
-    needs: define-matrix
     strategy:
       fail-fast: false
-      matrix:
-        python-version: ${{ fromJSON(needs.define-matrix.outputs.minimal-python-versions) }}
     steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setup
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ env.PYTHON_MINIMAL_VERSION }}
     - name: Format with ruff
       run: |
         ruff format --diff
 
   lint:
     runs-on: ubuntu-latest
-    needs: define-matrix
     strategy:
       fail-fast: false
-      matrix:
-        python-version: ${{ fromJSON(needs.define-matrix.outputs.minimal-python-versions) }}
     steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setup
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ env.PYTHON_MINIMAL_VERSION }}
     - name: Lint with ruff
       run: |
         ruff check
