@@ -1,0 +1,14 @@
+name: Aqua
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  aqua:
+    name: Aqua scanner
+    uses: alma/actions/.github/workflows/aqua.yml@v3
+    secrets: inherit
+    with:
+      service-account: github-gar-strufi@lyrical-carver-335213.iam.gserviceaccount.com
