@@ -1,0 +1,43 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strufi"
+version = "0.0.0"
+requires-python = ">= 3.12"
+authors = [{ name = "Alma Engineering", email = "engineering@almapay.com" }]
+description = "Parser for HTTP Structured Field Values"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["HTTP", "Structured Field Values", "RFC 8941", "RFC 9651"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+homepage = "https://github.com/alma/strufi"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "mypy",
+]
+
+[tool.setuptools]
+packages = ["strufi"]
+
+[tool.ruff]
+line-length = 110
