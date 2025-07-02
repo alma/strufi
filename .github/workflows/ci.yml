@@ -1,0 +1,80 @@
+name: Continuous Integration
+run-name: Continuous Integration (${{ github.event.pull_request.title || github.event.commits[0].message }})
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  PYTHON_MINIMAL_VERSION: "3.12"
+  PYTHON_VERSIONS: '["3.12", "3.13"]'
+
+jobs:
+  define-matrix:
+    runs-on: ubuntu-24.04
+    outputs:
+      python-versions: ${{ steps.python-versions.outputs.python-versions }}
+    steps:
+    - id: python-versions
+      run: |
+        echo "python-versions=$PYTHON_VERSIONS" >> "$GITHUB_OUTPUT"
+
+  format:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - uses: ./.github/actions/setup
+      with:
+        python-version: ${{ env.PYTHON_MINIMAL_VERSION }}
+    - name: Format with ruff
+      run: |
+        ruff format --diff
+
+  lint:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - uses: ./.github/actions/setup
+      with:
+        python-version: ${{ env.PYTHON_MINIMAL_VERSION }}
+    - name: Lint with ruff
+      run: |
+        ruff check
+
+  test:
+    runs-on: ubuntu-24.04
+    needs: define-matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ${{ fromJSON(needs.define-matrix.outputs.python-versions) }}
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - uses: ./.github/actions/setup
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Test with pytest
+      run: |
+        pytest -vv
+
+  types:
+    runs-on: ubuntu-24.04
+    needs: define-matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ${{ fromJSON(needs.define-matrix.outputs.python-versions) }}
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - uses: ./.github/actions/setup
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Analyze types with mypy
+      run: |
+        mypy .
