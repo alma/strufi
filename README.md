@@ -65,6 +65,9 @@ Here are the tools you can use to reproduce the checks made by the continuous in
 - `mypy .` to check for type annotations consistency
 - `pytest -vv` to run tests suit
 
+All these commands are also available through a Makefile that also takes care of the virtual environment: `make lint`, `make mypy` and `make tests`.
+You could also run `make all` or simply `make` to execute the three tasks.
+
 ### Contributing
 
 Feel free to [open issues](https://github.com/alma/strufi/issues) to report bugs or ask for features and to open pull-requests to work on existing issues.
