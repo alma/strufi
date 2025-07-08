@@ -6,7 +6,7 @@ all:  lint mypy tests
 
 $(VENV):
 	python -m venv $@
-	$(VENV)/bin/pip install -e '.[dev]'
+	$(VENV)/bin/pip install -e '.[dev,build]'
 
 
 lint: $(VENV)
@@ -20,3 +20,11 @@ mypy: $(VENV)
 
 tests: $(VENV)
 	$(VENV)/bin/pytest -vv
+
+
+build: $(VENV)
+	$(VENV)/bin/python -m build
+
+
+upload: build
+	$(VENV)/bin/twine upload dist/*

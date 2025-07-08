@@ -35,6 +35,10 @@ dev = [
     "ruff",
     "mypy",
 ]
+build = [
+    "build",
+    "twine",
+]
 
 [tool.setuptools]
 packages = ["strufi"]
