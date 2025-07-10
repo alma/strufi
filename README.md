@@ -73,3 +73,9 @@ You could also run `make all` or simply `make` to execute the three tasks.
 Feel free to [open issues](https://github.com/alma/strufi/issues) to report bugs or ask for features and to open pull-requests to work on existing issues.
 
 The code of the project is published under [MIT license](https://github.com/alma/strufi/blob/main/LICENSE).
+
+### Packaging
+
+Build dependencies can be installed with `pip install -e '.[build]'`.
+
+Then the package can be built with `python -m build` (or `make build`) and [uploaded on PyPI](https://pypi.org/project/strufi/) with `twine upload dist/*` (or `make upload` that builds & uploads the package).
