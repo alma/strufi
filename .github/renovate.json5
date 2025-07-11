@@ -3,11 +3,7 @@
   "extends": [
     "github>alma/renovate:defaults.json5"
   ],
-  "reviewers": [ "team:core-finance" ],
-  "packageRules": [
-    {
-      "matchDepNames": [ "python" ],
-      "enabled": false
-    }
-  ]
+  "enabledManagers": [
+    "github-actions"
+  ],
 }
