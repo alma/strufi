@@ -5,8 +5,10 @@ This library implements a parser and a serializer for [RFC 9651](https://www.rfc
 
 ## Installation
 
-Install `strufi` by running `pip install git+https://github.com/alma/strufi.git`
+Install `strufi` by running `pip install strufi`.  
 `strufi` package has no dependency.
+
+[See also package page on PyPI](https://pypi.org/project/strufi/).
 
 
 ## Usage
