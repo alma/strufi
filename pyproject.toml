@@ -28,6 +28,7 @@ classifiers = [
 
 [project.urls]
 homepage = "https://github.com/alma/strufi"
+changelog = "https://github.com/alma/strufi/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
