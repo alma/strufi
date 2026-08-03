@@ -1,7 +1,6 @@
 from datetime import datetime
-from typing import TypeAlias
 
-BareItem: TypeAlias = bool | int | float | str | bytes | datetime
-Parameters: TypeAlias = dict[str, BareItem]
-Item: TypeAlias = tuple[BareItem, Parameters]
-ItemList: TypeAlias = tuple[list[Item], Parameters]
+type BareItem = bool | int | float | str | bytes | datetime
+type Parameters = dict[str, BareItem]
+type Item = tuple[BareItem, Parameters]
+type ItemList = tuple[list[Item], Parameters]
