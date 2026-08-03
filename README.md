@@ -20,17 +20,17 @@ Install `strufi` by running `pip install strufi`.
 - `load_item` to parse a single item, returning the value with the parameters.
     ```pycon
     >>> import strufi
-    >>> strufi.load_item('text/html; charset=utf-8')
+    >>> strufi.load_item("text/html; charset=utf-8")
     ('text/html', {'charset': 'utf-8'})
     ```
 - `load_list` to parse a list of items, returning a list of pairs (value, parameters).
     ```pycon
-    >>> strufi.load_list('text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+    >>> strufi.load_list("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
     [('text/html', {}), ('application/xhtml+xml', {}), ('application/xml', {'q': 0.9}), ('*/*', {'q': 0.8})]
     ```
 - `load_dict` to parse a map of keys:items, returning values with their parameters.
     ```pycon
-    >>> strufi.load_dict('u=1, i')
+    >>> strufi.load_dict("u=1, i")
     {'u': (1, {}), 'i': (True, {})}
     ```
 
@@ -40,17 +40,19 @@ The module also exposes functions for the serializing operations, which are the 
 
 - `dump_item` takes a value with parameters and returns the structured field value representation of a single item as a string
     ```pycon
-    >>> strufi.dump_item(('text/html', {'charset': 'utf-8'}))
+    >>> strufi.dump_item(("text/html", {"charset": "utf-8"}))
     '"text/html";charset="utf-8"'
     ```
 - `dump_list` takes a list of items and return the structured list representation
     ```pycon
-    >>> strufi.dump_list([('text/html', {}), ('application/xhtml+xml', {}), ('application/xml', {'q': 0.9}), ('*/*', {'q': 0.8})])
+    >>> strufi.dump_list(
+    ...     [("text/html", {}), ("application/xhtml+xml", {}), ("application/xml", {"q": 0.9}), ("*/*", {"q": 0.8})]
+    ... )
     '"text/html", "application/xhtml+xml", "application/xml";q=0.9, "*/*";q=0.8'
     ```
 - `dump_dict` takes a dictionnary of key:item and return the structured dict representation
     ```pycon
-    >>> strufi.dump_dict({'u': (1, {}), 'i': (True, {})})
+    >>> strufi.dump_dict({"u": (1, {}), "i": (True, {})})
     'u=1, i'
     ```
 

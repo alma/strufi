@@ -1,5 +1,5 @@
 from collections import deque
-from collections.abc import Collection, Iterable
+from collections.abc import Collection, Iterator
 
 from .exceptions import LoadError, _ContinueLoading
 
@@ -18,7 +18,7 @@ class Reader:
     def __len__(self) -> int:
         return len(self._data)
 
-    def __iter__(self) -> Iterable[str]:
+    def __iter__(self) -> Iterator[str]:
         return iter(self._data)
 
     def get(self) -> str:
