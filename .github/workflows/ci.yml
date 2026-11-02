@@ -13,7 +13,7 @@ env:
 
 jobs:
   define-matrix:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       python-versions: ${{ steps.python-versions.outputs.python-versions }}
     steps:
@@ -22,7 +22,7 @@ jobs:
         echo "python-versions=$PYTHON_VERSIONS" >> "$GITHUB_OUTPUT"
 
   format:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
     steps:
@@ -35,7 +35,7 @@ jobs:
         ruff format --diff
 
   lint:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
     steps:
@@ -48,7 +48,7 @@ jobs:
         ruff check
 
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: define-matrix
     strategy:
       fail-fast: false
@@ -64,7 +64,7 @@ jobs:
         pytest -vv
 
   types:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: define-matrix
     strategy:
       fail-fast: false
