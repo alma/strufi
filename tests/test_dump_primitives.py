@@ -139,7 +139,7 @@ def test_dump_date(value, expected):
 def test_dump_date_error():
     check_dump_function_error(
         dump_date,
-        datetime(1970, 1, 1),  # noqa: DTZ001
+        datetime(1970, 1, 1),
         "Cannot dump naive datetime object",
     )
 
